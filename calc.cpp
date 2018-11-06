@@ -8,7 +8,7 @@ using namespace std;
 
 #define DOT '.'
 //-----NAGLOWKI FUNKCJI--------------
-void Calc();
+double Calc();
 double GetNum();
 char GetOper();
 void SkipSpaces();
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 
 	printf("Podaj wyrazenie: ");
 
-	Calc();
+	printf("Wartosc= %.2lf\n", Calc());
 	
 	printf("\n\nKONIEC\n");
 	getchar();
@@ -34,10 +34,10 @@ int main(int argc, char* argv[])
 }
 
 //----------------------------------
-void Calc()
+double Calc()
 {
-	Stack* pStack = InitStack();
-	dStack* dpStack = dInitStack(); 
+	Stack* pStack = InitStack(); // =NULL moze byc
+	dStack* dpStack = dInitStack(); // =NULL moze byc
 	
 	char c;
 	int isPos = 1;
@@ -88,13 +88,12 @@ void Calc()
 		dpush(Eval(pop(&pStack), dpop(&dpStack), arg), &dpStack);
 	}
 	
-	printf("WYNIK: %0.2lf", dtop(dpStack));
+	double res = dtop(dpStack);
 	RemoveStack(&pStack);
 	dRemoveStack(&dpStack);
-
+	return res;
 	
 }
-
 
 //------------------------
 double GetNum()// pobiera liczbe zmiennoprzecinkowa
